@@ -21,18 +21,18 @@ class BrandController(
 
     @GetMapping
     fun getBrandList(): ResponseEntity<List<BrandResponseDto>> {
-        return ResponseEntity.ok(brandService.getBrandList().map { it.toBrandResponseDto() })
+        return ResponseEntity.ok(brandService.getBrandList().map { BrandResponseDto.fromBrand(it) })
     }
 
     @GetMapping("/{id}")
     fun getBrand(@PathVariable id: Long): ResponseEntity<BrandResponseDto> {
-        return ResponseEntity.ok(brandService.getBrand(id).toBrandResponseDto())
+        return ResponseEntity.ok(BrandResponseDto.fromBrand(brandService.getBrand(id)))
     }
 
     @PostMapping
     fun createBrand(@RequestBody brandRequestDto: BrandRequestDto): ResponseEntity<BrandResponseDto> {
         return ResponseEntity.ok(
-            brandService.createBrand(brandRequestDto).toBrandResponseDto()
+            BrandResponseDto.fromBrand(brandService.createBrand(brandRequestDto))
         )
     }
 
@@ -42,7 +42,7 @@ class BrandController(
         @RequestBody brandRequestDto: BrandRequestDto
     ): ResponseEntity<BrandResponseDto> {
         return ResponseEntity.ok(
-            brandService.updateBrand(id, brandRequestDto).toBrandResponseDto()
+            BrandResponseDto.fromBrand(brandService.updateBrand(id, brandRequestDto))
         )
     }
 
