@@ -1,7 +1,7 @@
 package my.assignment.productsearchservice.controller
 
-import my.assignment.productsearchservice.dto.ProductRequestDto
-import my.assignment.productsearchservice.dto.ProductResponseDto
+import my.assignment.productsearchservice.dto.ProductDto
+import my.assignment.productsearchservice.dto.request.ProductRequestDto
 import my.assignment.productsearchservice.service.ProductService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,20 +20,20 @@ class ProductController(
 ) {
 
     @GetMapping
-    fun getProductList(): ResponseEntity<List<ProductResponseDto>> {
+    fun getProductList(): ResponseEntity<List<ProductDto>> {
         return ResponseEntity.ok(
-            productService.getProductList().map { ProductResponseDto.fromProduct(it) })
+            productService.getProductList().map { ProductDto.fromProduct(it) })
     }
 
     @GetMapping("/{id}")
-    fun getProduct(@PathVariable id: Long): ResponseEntity<ProductResponseDto> {
-        return ResponseEntity.ok(ProductResponseDto.fromProduct(productService.getProduct(id)))
+    fun getProduct(@PathVariable id: Long): ResponseEntity<ProductDto> {
+        return ResponseEntity.ok(ProductDto.fromProduct(productService.getProduct(id)))
     }
 
     @PostMapping
-    fun createProduct(@RequestBody productRequestDto: ProductRequestDto): ResponseEntity<ProductResponseDto> {
+    fun createProduct(@RequestBody productRequestDto: ProductRequestDto): ResponseEntity<ProductDto> {
         return ResponseEntity.ok(
-            ProductResponseDto.fromProduct(
+            ProductDto.fromProduct(
                 productService.createProduct(productRequestDto)
             )
         )
@@ -43,9 +43,9 @@ class ProductController(
     fun updateProduct(
         @PathVariable id: Long,
         @RequestBody productRequestDto: ProductRequestDto
-    ): ResponseEntity<ProductResponseDto> {
+    ): ResponseEntity<ProductDto> {
         return ResponseEntity.ok(
-            ProductResponseDto.fromProduct(
+            ProductDto.fromProduct(
                 productService.updateProduct(id, productRequestDto)
             )
         )

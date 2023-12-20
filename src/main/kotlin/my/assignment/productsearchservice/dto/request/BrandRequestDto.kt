@@ -1,8 +1,9 @@
-package my.assignment.productsearchservice.dto
+package my.assignment.productsearchservice.dto.request
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import my.assignment.productsearchservice.entity.Brand
 
+// TODO validate 구현
 data class BrandRequestDto(
     @JsonProperty("name") val name: String
 ) {

@@ -1,6 +1,6 @@
 package my.assignment.productsearchservice.service
 
-import my.assignment.productsearchservice.dto.ProductRequestDto
+import my.assignment.productsearchservice.dto.request.ProductRequestDto
 import my.assignment.productsearchservice.entity.Product
 import my.assignment.productsearchservice.exception.ErrorEnum
 import my.assignment.productsearchservice.exception.ProductSearchServiceException
