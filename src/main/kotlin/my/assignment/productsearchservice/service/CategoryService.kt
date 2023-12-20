@@ -20,7 +20,7 @@ class CategoryService(
     }
 
     fun getCategoryWiseMinPrice(): List<Category> {
-        var categoryWiseMinPriceItems = categoryRepository.findCategoryWiseMinimumPrices()
+        var categoryWiseMinPriceItems = categoryRepository.findCategoryWiseMinimumPrice()
 
         // 중복으로 조회된 카테고리가 있을 수 있으므로 distinct 처리
         categoryWiseMinPriceItems = categoryWiseMinPriceItems.distinct()

@@ -17,5 +17,5 @@ interface CategoryRepository : JpaRepository<Category, Long> {
                 p.price = (SELECT MIN(p2.price) FROM Product p2 WHERE p2.category.id = c.id)
         """
     )
-    fun findCategoryWiseMinimumPrices(): List<Category>
+    fun findCategoryWiseMinimumPrice(): List<Category>
 }
