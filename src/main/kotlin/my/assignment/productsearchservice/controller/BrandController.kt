@@ -53,7 +53,7 @@ class BrandController(
         return ResponseEntity.ok().build()
     }
 
-    @GetMapping("/minimum-total-price")
+    @GetMapping("/lowest-total-price")
     fun getBrandWithLowestTotalPrice(): ResponseEntity<BrandWithLowestPriceDto> {
         val brandWithLowestPrice = brandService.getBrandWithLowestTotalPrice()
         return ResponseEntity.ok(BrandWithLowestPriceDto(brandWithLowestPrice))

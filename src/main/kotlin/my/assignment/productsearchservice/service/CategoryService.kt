@@ -1,5 +1,6 @@
 package my.assignment.productsearchservice.service
 
+import my.assignment.productsearchservice.dto.CategoryPriceRangesDto
 import my.assignment.productsearchservice.entity.Category
 import my.assignment.productsearchservice.exception.ErrorEnum
 import my.assignment.productsearchservice.exception.ProductSearchServiceException
@@ -32,5 +33,21 @@ class CategoryService(
         }
 
         return categoryWiseMinPriceItems
+    }
+
+    fun getCategoryPriceRange(name: String): CategoryPriceRangesDto {
+        val category = categoryRepository.findByName(name).orElseThrow {
+            throw ProductSearchServiceException(
+                ErrorEnum.RESOURCE_NOT_FOUND
+            )
+        }
+
+        val lowestPriceBrand: Pair<String, Double> = category.products?.minByOrNull { it.price }
+            ?.let { Pair(it.brand?.name!!, it.price) } ?: Pair("", 0.0)
+
+        val highestPriceBrand: Pair<String, Double> = category.products?.maxByOrNull { it.price }
+            ?.let { Pair(it.brand?.name!!, it.price) } ?: Pair("", 0.0)
+
+        return CategoryPriceRangesDto(category.name, lowestPriceBrand, highestPriceBrand)
     }
 }

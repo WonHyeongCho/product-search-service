@@ -3,8 +3,11 @@ package my.assignment.productsearchservice.repository
 import my.assignment.productsearchservice.entity.Category
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import java.util.Optional
 
 interface CategoryRepository : JpaRepository<Category, Long> {
+
+    fun findByName(name: String): Optional<Category>
 
     @Query(
         """
