@@ -47,6 +47,14 @@ class BrandService(
         brandRepository.deleteById(id)
     }
 
+    fun getBrandWithLowestTotalPrice(): Brand {
+        val brandWithTotalPrice: List<Map<String, Any>> = brandRepository.findBrandWitTotalPrice()
+        val brandWithLowestTotalPriceInfo = brandWithTotalPrice.firstOrNull()
+        val brandWithLowestTotalPrice =
+            brandRepository.findById(brandWithLowestTotalPriceInfo?.get("brand_id") as Long)
+        return getBrand(brandWithLowestTotalPrice.get().id)
+    }
+
     private fun saveBrand(brand: Brand): Brand {
         return brandRepository.save(brand)
     }

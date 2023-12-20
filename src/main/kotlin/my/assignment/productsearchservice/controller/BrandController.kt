@@ -1,6 +1,7 @@
 package my.assignment.productsearchservice.controller
 
 import my.assignment.productsearchservice.dto.BrandDto
+import my.assignment.productsearchservice.dto.BrandWithLowestPriceDto
 import my.assignment.productsearchservice.dto.request.BrandRequestDto
 import my.assignment.productsearchservice.service.BrandService
 import org.springframework.http.ResponseEntity
@@ -50,5 +51,11 @@ class BrandController(
     fun deleteBrand(@PathVariable id: Long): ResponseEntity<Void> {
         brandService.deleteBrand(id)
         return ResponseEntity.ok().build()
+    }
+
+    @GetMapping("/minimum-total-price")
+    fun getBrandWithLowestTotalPrice(): ResponseEntity<BrandWithLowestPriceDto> {
+        val brandWithLowestPrice = brandService.getBrandWithLowestTotalPrice()
+        return ResponseEntity.ok(BrandWithLowestPriceDto(brandWithLowestPrice))
     }
 }
