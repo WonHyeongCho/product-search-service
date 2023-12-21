@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.resource.NoResourceFoundException
 
 @RestControllerAdvice
 class ExceptionHandler {
@@ -15,6 +16,12 @@ class ExceptionHandler {
         logger().error("Exception occurred", e)
         val errorResponse = ErrorResponse(ErrorEnum.UNDEFINED)
         return ResponseEntity.status(ErrorEnum.UNDEFINED.httpStatus).body(errorResponse)
+    }
+
+    @ExceptionHandler(NoResourceFoundException::class)
+    fun handleNoResourceFoundException(e: NoResourceFoundException): ResponseEntity<ErrorResponse> {
+        logger().error("NoResourceFoundException occurred", e)
+        return ResponseEntity.notFound().build()
     }
 
     @ExceptionHandler(ValidationException::class, MethodArgumentNotValidException::class)
